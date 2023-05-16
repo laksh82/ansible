@@ -1,0 +1,8 @@
+---
+- name: create user
+  hosts: all
+  tasks:
+    - name: create user
+      user:
+        name: aman
+        shell: /bin/bash
