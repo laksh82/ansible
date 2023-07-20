@@ -4,5 +4,5 @@
   tasks:
     - name: create user
       user:
-        name: aman
-        shell: /bin/bash
+        ansible_isam_username: "{{ isam_username }}"
+        ansible_isam_password: "{{ isam_password }}"
