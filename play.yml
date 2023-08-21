@@ -1,8 +1,12 @@
----
-- name: Get Facts about an Azure VM
+- name: Collect Azure VM Facts
   hosts: localhost
-
   tasks:
-    - name: Get facts for all virtual machines of a resource group
-      azure_rm_virtualmachine_info:
+    - name: Gather Azure facts
+      azure.azcollection.azure_rm_virtualmachine_info:
         resource_group: vm-rg
+        name: VM
+        register: vm_info
+
+    - name: Display VM Facts
+      debug:
+        var: vm_info
