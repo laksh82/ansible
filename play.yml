@@ -5,8 +5,8 @@
       azure.azcollection.azure_rm_virtualmachine_info:
         resource_group: vm-rg
         name: VM
-        register: vm_info
+      register: vm_info
 
     - name: Display VM Facts
       debug:
-        var: vm_info
+        msg: "{{ vm_info }}"
