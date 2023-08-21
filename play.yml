@@ -7,6 +7,11 @@
         name: VM
       register: vm_info
 
+    - name: copy in file
+      copy:
+        dest: /etc/output
+        content: "{{ vm_info }}"
+
     - name: Display VM Facts
       debug:
         msg: "{{ vm_info }}"
