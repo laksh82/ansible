@@ -2,6 +2,7 @@
 - name: create file
   hosts: all
   tasks:
-    - name: create file
-      debug:
-        msg: hello
+    - name: Compress directory /path/to/foo/ into /path/to/foo.tgz
+      community.general.archive:
+        path: /path/to/foo
+        dest: /path/to/foo.tgz
