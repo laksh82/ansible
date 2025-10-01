@@ -1,0 +1,10 @@
+    - name: Enable Azure VM Backup using Azure CLI
+      shell: |
+        az backup protection enable-for-vm \
+          --resource-group {{ resource_group }} \
+          --vault-name {{ recovery_vault_name }} \
+          --vm {{ vm_name }} \
+          --policy-name {{ policy_name }}
+      environment:
+        AZURE_SUBSCRIPTION_ID: "{{ AZURE_SUBSCRIPTION_ID }}"
+      register: backup_enable
