@@ -1,3 +1,9 @@
+---
+- name: Enable Azure VM Backup
+  hosts: localhost
+  gather_facts: false
+
+    tasks:
     - name: Enable Azure VM Backup using Azure CLI
       shell: |
         az backup protection enable-for-vm \
