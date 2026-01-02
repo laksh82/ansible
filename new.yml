@@ -1,19 +1,10 @@
 ---
-  - hosts: localhost
-    gather_facts: no
-    vars_prompt:
-    - name: "netapp_hostname"
-      prompt: "What is the name of the NetApp ONTAP instance"
-      private: no
-    - name: "netapp_username"
-      prompt: "Enter NetApp ONTAP user"
-      private: no
-    - name: "netapp_password"
-      prompt: "Enter NetApp ONTAP password"
-      private: yes
+- hosts: localhost
+  connection: local
+  gather_facts: no
 
-    tasks:
-    - name: Limit Info Gathering to Aggregate Information as Cluster Admin
+  tasks:
+    - name: Gather volume information from ONTAP
       netapp.ontap.na_ontap_info:
         hostname: "{{ netapp_hostname }}"
         username: "{{ netapp_username }}"
