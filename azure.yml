@@ -1,16 +1,28 @@
 ---
-- name: Enable Azure VM Backup
-  hosts: localhost
-  gather_facts: false
+  - hosts: localhost
+    gather_facts: no
+    vars_prompt:
+    - name: "netapp_hostname"
+      prompt: "What is the name of the NetApp ONTAP instance"
+      private: no
+    - name: "netapp_username"
+      prompt: "Enter NetApp ONTAP user"
+      private: no
+    - name: "netapp_password"
+      prompt: "Enter NetApp ONTAP password"
+      private: yes
 
     tasks:
-    - name: Enable Azure VM Backup using Azure CLI
-      shell: |
-        az backup protection enable-for-vm \
-          --resource-group {{ resource_group }} \
-          --vault-name {{ recovery_vault_name }} \
-          --vm {{ vm_name }} \
-          --policy-name {{ policy_name }}
-      environment:
-        AZURE_SUBSCRIPTION_ID: "{{ AZURE_SUBSCRIPTION_ID }}"
-      register: backup_enable
+    - name: Limit Info Gathering to Aggregate Information as Cluster Admin
+      netapp.ontap.na_ontap_info:
+        hostname: "{{ netapp_hostname }}"
+        username: "{{ netapp_username }}"
+        password: "{{ netapp_password }}"
+        https: true
+        validate_certs: false
+        gather_subset:
+          - volume_info
+      register: ontap_info
+
+    - debug:
+        var: ontap_info
